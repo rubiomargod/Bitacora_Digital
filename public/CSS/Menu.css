@@ -1,0 +1,105 @@
+:root {
+  --ColorP:#176298;
+  --ColorS:#ccf0ff;
+  --TextoN:#0000;
+  --TextoB:white;
+
+}
+/* Body */
+body {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  padding-left: 80px; /* Barra lateral cerrada al inicio */
+  transition: padding-left 0.3s ease;
+}
+.collapsed .nav-item{
+  width: 50px;
+}
+/* Barra Lateral */
+.sidebar {
+  width: 80px; /* Barra lateral cerrada */
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background:var(--ColorP);
+  color: white;
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar.expanded {
+  width: 250px; /* Barra lateral expandida */
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--TextoB);
+  padding: 10px;
+  text-decoration: none;
+  background: transparent;
+}
+
+.sidebar .nav-link i {
+  font-size: 20px; /* Tamaño del icono */
+}
+
+.sidebar.collapsed .nav-link i {
+  font-size: 30px; /* Icono más grande cuando está colapsada */
+}
+
+.sidebar.collapsed .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Hover general para texto y icono */
+}
+
+.sidebar .toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: -40px;
+  background: var(--ColorP);
+  color: var(--TextoB);
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.nav-bottom {
+  margin-top: auto;
+}
+
+.sidebar-text {
+  transition: opacity 0.3s ease;
+}
+
+.collapsed .sidebar-text {
+  opacity: 0; /* Ocultar texto cuando está colapsada */
+}
+
+.sidebar.expanded .sidebar-text {
+  opacity: 1; /* Mostrar texto cuando está expandida */
+}
+
+/* Desplazamiento del contenido */
+.content {
+  flex: 1;
+  transition: margin-left 0.3s ease; /* Transición de desplazamiento */
+}
+
+.shifted {
+  margin-left: 250px; /* Desplazar el contenido cuando la barra lateral está expandida */
+}
+
+.collapsed + .content {
+  margin-left: 80px; /* Desplazar el contenido cuando la barra lateral está colapsada */
+}
