@@ -15,7 +15,10 @@
 
 <body>
   @include('Components.Menu')
-  @yield('body')
+
+  <div class="container-fluid" style="margin-left: auto;">
+    @yield('body')
+  </div>
   @livewireScripts
 </body>
 

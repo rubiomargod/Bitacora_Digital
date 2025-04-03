@@ -14,7 +14,7 @@
   <ul class="nav flex-column">
     <li class="nav-item">
       <a href="{{route('REPORTES')}}" class="nav-link">
-        <i class="bi bi-people-fill"></i> <!-- Ícono de nieve -->
+        <i class="bi bi-plus-lg"></i>
         <span class="sidebar-text">Incidencias</span>
       </a>
     </li>
