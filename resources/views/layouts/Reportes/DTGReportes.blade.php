@@ -27,12 +27,12 @@
             <button type="button" class="btn btn-sm btn-outline-primary" wire:click="Mostrar({{$incidencia->id}})">
               <i class="bi bi-eye"></i>
             </button>
-            @if(session('ROLE') == 'Admin')
+            @if(session('ROLE') == 'Director')
             <button type="button" class="btn btn-sm btn-outline-warning" wire:click="Editar({{$incidencia->id}})">
               <i class="bi bi-pencil"></i>
             </button>
             @endif
-            @if(session('ROLE') == 'Admin')
+            @if(session('ROLE') == 'Director')
             <button type="button" class="btn btn-sm btn-outline-danger" wire:click="Preguntar({{$incidencia->id}})">
               <i class="bi bi-trash"></i>
             </button>

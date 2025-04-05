@@ -12,6 +12,10 @@ Route::get('/Reportes', function () {
   return view('Layouts.Reportes.Reportes');
 })->name('REPORTES');
 
+Route::get('/Alumnos', function () {
+  return view('Layouts.Alumnos.Alumnos');
+})->name('ALUMNOS');
+
 Route::get('/Login', function () {
   session(['ROLE' => '']); // Limpiar el rol de la sesión
   return view('Layouts.Login');

@@ -112,7 +112,8 @@ class Reportes extends Component
     $this->Motivos = $incidencia->Motivos;
     $this->Descripcion = $incidencia->Descripción;
     $this->Status = $incidencia->Status;
-
+    $incidencia->Status = 'Leído';
+    $incidencia->save();
     $this->dispatch('abrirMostrar');
   }
 }

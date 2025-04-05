@@ -19,6 +19,14 @@
       </a>
     </li>
   </ul>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a href="{{route('ALUMNOS')}}" class="nav-link">
+        <i class="bi bi-people"></i>
+        <span class="sidebar-text">Alumnos</span>
+      </a>
+    </li>
+  </ul>
   <ul class="nav flex-column nav-bottom">
     <li class="nav-item">
       <a href="" class="nav-link">

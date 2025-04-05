@@ -5,7 +5,6 @@
     @if($Contenido == 'Buscar')
     @include('Layouts.Reportes.DTGReportes')
     @endif
-
     @include('Layouts.Reportes.FRMNuevo')
     @include('Layouts.Reportes.FRMEditar')
     @include('Layouts.Reportes.FRMBorrar')
