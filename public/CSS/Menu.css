@@ -3,7 +3,6 @@
   --ColorS:#ccf0ff;
   --TextoN:#0000;
   --TextoB:white;
-
 }
 /* Body */
 body {
@@ -51,7 +50,7 @@ body {
 }
 
 .sidebar.collapsed .nav-link i {
-  font-size: 30px; /* Icono más grande cuando está colapsada */
+  font-size: 25px; /* Icono más grande cuando está colapsada */
 }
 
 .sidebar.collapsed .nav-link:hover {

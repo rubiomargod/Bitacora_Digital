@@ -10,15 +10,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('CSS/Normalize.css.css') }}">
-  <link rel="stylesheet" href="{{ asset('CSS/App.css') }}">
+  <link rel="stylesheet" href="{{ asset('CSS/Login.css') }}">
   @livewireStyles
 </head>
 
 <body>
-  @include('Components.Menu')
-  <div class="container-fluid" style="margin-left: auto;">
-    @yield('body')
-  </div>
+  @livewire('login')
   @livewireScripts
 </body>
 

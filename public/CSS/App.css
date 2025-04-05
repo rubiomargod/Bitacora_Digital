@@ -1,0 +1,10 @@
+:root {
+  --ColorP:#176298;
+  --ColorS:#ccf0ff;
+  --TextoN:#0000;
+  --TextoB:white;
+}
+.container-fluid
+{
+  background-color: var(--ColorS);
+}

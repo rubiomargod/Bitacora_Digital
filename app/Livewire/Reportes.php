@@ -9,6 +9,8 @@ use App\Models\Reporte;
 
 class Reportes extends Component
 {
+
+  public $Role = "";
   public $Buscara = "";
   public $incidencias = [];
   public $alumnos = [];
@@ -29,6 +31,7 @@ class Reportes extends Component
   }
   public function render()
   {
+    $this->Role = session('ROLE');
     $this->alumnos = Alumnos::all();
     return view('livewire.reportes');
   }
