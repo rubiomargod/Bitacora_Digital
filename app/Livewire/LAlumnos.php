@@ -46,20 +46,20 @@ class LAlumnos extends Component
       'Grupo' => 'required|string|max:10',
       'Status' => 'nullable|in:Activo,Inactivo',
     ]);
-
-    Alumnos::create([
-      'Nombre' => $this->Nombre,
-      'Apellidos' => $this->Apellidos,
-      'Grado' => $this->Grado,
-      'Grupo' => $this->Grupo,
-      'Status' => $this->Status,
-    ]);
-
-    session()->flash('message', 'Alumno registrado exitosamente.');
-
-    $this->Limpiar();
-    $this->Filtrar();
-    $this->dispatch('cerrarNuevoAlumno');
+    try {
+      Alumnos::create([
+        'Nombre' => $this->Nombre,
+        'Apellidos' => $this->Apellidos,
+        'Grado' => $this->Grado,
+        'Grupo' => $this->Grupo,
+        'Status' => $this->Status,
+      ]);
+      $this->Limpiar();
+      $this->Filtrar();
+      return redirect()->route('ALUMNOS')->with('success', 'Alumno creado correctamente.');
+    } catch (\Exception $e) {
+      return redirect()->back()->withErrors(['error' => 'Hubo un problema al crear el alumno. Inténtalo nuevamente.'])->withInput();
+    }
   }
 
   public function DarBaja($id)
@@ -69,9 +69,10 @@ class LAlumnos extends Component
       $alumno->Status = 'Inactivo';
       $alumno->save();
       $this->Limpiar();
-      $this->Filtrar();
       $this->dispatch('CerrarModelBaja');
+      return redirect()->route('ALUMNOS')->with('success', 'Alumno dado de baja.');
     } catch (\Exception $e) {
+      return redirect()->route('ALUMNOS')->withErrors(['error' => 'Hubo un problema al dar de baja al alumno.']);
     }
   }
   public function DarAlta($id)
@@ -81,9 +82,10 @@ class LAlumnos extends Component
       $alumno->Status = 'Activo';
       $alumno->save();
       $this->Limpiar();
-      $this->Filtrar();
       $this->dispatch('CerrarModelAlta');
+      return redirect()->route('ALUMNOS')->with('success', 'Alumno dado de alta.');
     } catch (\Exception $e) {
+      return redirect()->route('ALUMNOS')->withErrors(['error' => 'Hubo un problema al dar de alta al alumno.']);
     }
   }
   public function Baja($ID)
