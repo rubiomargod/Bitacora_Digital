@@ -16,12 +16,15 @@ Route::get('/Alumnos', function () {
   return view('Layouts.Alumnos.Alumnos');
 })->name('ALUMNOS');
 
+Route::get('/Maestros', function () {
+  return view('Layouts.Maestros.Maestros');
+})->name('MAESTROS');
+
 Route::get('/Login', function () {
-  session(['ROLE' => '']); // Limpiar el rol de la sesión
+  session(['ROLE' => '']);
   return view('Layouts.Login');
 })->name('SALIR');
 
-// Si el rol no es 'User', redirigir al login
 Route::get('/Login', function () {
   return view('Layouts.Login');
 })->name('LOGIN');
