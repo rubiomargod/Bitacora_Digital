@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-$Role = session('ROLE');
-
 Route::get('/', function () {
   return view('App');
 });

@@ -19,11 +19,11 @@ class Login extends Component
   {
     $user = User::where('email', $this->Email)->first();
     if ($this->Clave = $user->password)
-      if ($user->role == 'admin') {
-        session(['ROLE' => 'Admin']); // Guardar en la sesión de forma permanente
+      if ($user->role == 'Director') {
+        session(['ROLE' => 'Director']);
         return redirect()->to('/');
       } else {
-        session(['ROLE' => 'User']); // Guardar en la sesión de forma permanente
+        session(['ROLE' => 'Maestro']);
         return redirect()->to('/');
       }
   }

@@ -14,15 +14,16 @@
   <ul class="nav flex-column">
     <li class="nav-item">
       <a href="{{route('REPORTES')}}" class="nav-link">
-        <i class="bi bi-plus-lg"></i>
+        <i class="bi bi-file-earmark-text"></i>
         <span class="sidebar-text">Incidencias</span>
       </a>
     </li>
   </ul>
+  @if (session('ROLE') === 'Director')
   <ul class="nav flex-column">
     <li class="nav-item">
       <a href="{{route('ALUMNOS')}}" class="nav-link">
-        <i class="bi bi-people"></i>
+        <i class="bi bi-backpack3"></i>
         <span class="sidebar-text">Alumnos</span>
       </a>
     </li>
@@ -35,6 +36,7 @@
       </a>
     </li>
   </ul>
+  @endif
   <ul class="nav flex-column nav-bottom">
     <li class="nav-item">
       <a href="" class="nav-link">
