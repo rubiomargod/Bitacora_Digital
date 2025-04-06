@@ -14,7 +14,7 @@
     </div>
 
     @if ($alumno->Status === 'Activo')
-    <button type="button" class="btn btn-danger" wire:click="darDeBaja({{ $alumno->id }})">🚫 Dar de Baja</button>
+    <button type="button" class="btn btn-danger" wire:click="Baja({{ $alumno->id }})">🚫 Dar de Baja</button>
     @else
     <button type="button" class="btn btn-success" wire:click="Alta({{ $alumno->id }})">🔼 Dar de Alta</button>
     @endif

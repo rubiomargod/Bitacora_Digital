@@ -33,6 +33,10 @@ class LAlumnos extends Component
     }
     $this->ALUMNOS = DB::select($sql, $bindings);
   }
+  public function Limpiar()
+  {
+    $this->reset(['Nombre', 'Apellidos', 'Grado', 'Grupo', 'Status']);
+  }
   public function GuardarAlumno()
   {
     $this->validate([
@@ -53,23 +57,55 @@ class LAlumnos extends Component
 
     session()->flash('message', 'Alumno registrado exitosamente.');
 
-    $this->reset(['Nombre', 'Apellidos', 'Grado', 'Grupo', 'Status']);
-
-    $this->dispatch('cerrarNuevoAlumno');
+    $this->Limpiar();
     $this->Filtrar();
+    $this->dispatch('cerrarNuevoAlumno');
   }
-  public function Limpiar()
+
+  public function DarBaja($id)
   {
-    $this->reset(['Nombre', 'Apellidos', 'Grado', 'Grupo', 'Status']);
-  }
-  public function darDeBaja($id)
-  {
-    dd($id);
     try {
       $alumno = Alumnos::findOrFail($id);
       $alumno->Status = 'Inactivo';
       $alumno->save();
+      $this->Limpiar();
+      $this->Filtrar();
+      $this->dispatch('CerrarModelBaja');
     } catch (\Exception $e) {
     }
+  }
+  public function DarAlta($id)
+  {
+    try {
+      $alumno = Alumnos::findOrFail($id);
+      $alumno->Status = 'Activo';
+      $alumno->save();
+      $this->Limpiar();
+      $this->Filtrar();
+      $this->dispatch('CerrarModelAlta');
+    } catch (\Exception $e) {
+    }
+  }
+  public function Baja($ID)
+  {
+    $Alumno = Alumnos::find($ID);
+    $this->ID = $Alumno->id;
+    $this->Nombre = $Alumno->Nombre;
+    $this->Apellidos = $Alumno->Apellidos;
+    $this->Grado = $Alumno->Grado;
+    $this->Grupo = $Alumno->Grupo;
+    $this->Status = $Alumno->Status;
+    $this->dispatch('AbrirModelBaja');
+  }
+  public function Alta($ID)
+  {
+    $Alumno = Alumnos::find($ID);
+    $this->ID = $Alumno->id;
+    $this->Nombre = $Alumno->Nombre;
+    $this->Apellidos = $Alumno->Apellidos;
+    $this->Grado = $Alumno->Grado;
+    $this->Grupo = $Alumno->Grupo;
+    $this->Status = $Alumno->Status;
+    $this->dispatch('AbrirModelAlta');
   }
 }

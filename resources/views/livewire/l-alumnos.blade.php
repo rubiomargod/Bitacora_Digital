@@ -34,6 +34,8 @@
     <h3 class="text-center mb-5">📚 Lista de ALUMNOS</h3>
     @include('Layouts.Alumnos.Buscador')
     @include('Layouts.Alumnos.FRMNuevo')
+    @include('Layouts.Alumnos.FRMAlta')
+    @include('Layouts.Alumnos.FRMBaja')
     @if($Contenido == 'Buscar')
     @include('Layouts.Alumnos.DTGAlumnos')
     @endif
