@@ -21,8 +21,4 @@ Route::get('/Maestros', function () {
 Route::get('/Login', function () {
   session(['ROLE' => '']);
   return view('Layouts.Login');
-})->name('SALIR');
-
-Route::get('/Login', function () {
-  return view('Layouts.Login');
 })->name('LOGIN');

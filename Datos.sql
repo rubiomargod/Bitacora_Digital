@@ -1,6 +1,6 @@
 INSERT INTO users (name, email, email_verified_at, password, role, remember_token, created_at, updated_at) VALUES
-('ADMIN', 'ADMIN@gmail.com', NOW(), '12345', 'Director', NULL, NOW(), NOW()),
-('admin', 'admin@gmail.com', NOW(), '12345', 'Maestro', NULL, NOW(), NOW());
+('Director', 'Director@gmail.com', NOW(), 'Director', 'Director', NULL, NOW(), NOW()),
+('Maestro', 'Maestro@gmail.com', NOW(), 'Maestro', 'Maestro', NULL, NOW(), NOW());
 
 INSERT INTO alumnos (Nombre, Apellidos, Grado, Grupo, Status, created_at, updated_at) VALUES
 ('Ana', 'Pérez García', '3', 'A', 'Activo', NOW(), NOW()),

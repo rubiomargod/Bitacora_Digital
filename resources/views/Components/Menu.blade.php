@@ -39,7 +39,7 @@
   @endif
   <ul class="nav flex-column nav-bottom">
     <li class="nav-item">
-      <a href="" class="nav-link">
+      <a href="{{route('LOGIN')}}" class="nav-link">
         <i class="bi bi-box-arrow-right"></i>
         <span class="sidebar-text">Salir</span>
       </a>

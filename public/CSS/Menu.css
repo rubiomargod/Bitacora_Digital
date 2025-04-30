@@ -1,38 +1,39 @@
 :root {
-  --ColorP:#176298;
-  --ColorS:#ccf0ff;
-  --TextoN:#0000;
-  --TextoB:white;
+  --ColorP: #176298;
+  --ColorS: #ccf0ff;
+  --TextoN: #0000;
+  --TextoB: white;
 }
+
 /* Body */
 body {
   display: flex;
   min-height: 100vh;
   overflow: hidden;
-  padding-left: 80px; /* Barra lateral cerrada al inicio */
+  padding-left: 80px; /* Ajustado al tamaño de la barra lateral */
+  margin: 0;
   transition: padding-left 0.3s ease;
 }
-.collapsed .nav-item{
-  width: 50px;
-}
+
 /* Barra Lateral */
 .sidebar {
-  width: 80px; /* Barra lateral cerrada */
+  width: 80px;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  background:var(--ColorP);
+  background: var(--ColorP);
   color: white;
   padding-top: 20px;
   transition: width 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 1001;
 }
 
 .sidebar.expanded {
-  width: 250px; /* Barra lateral expandida */
+  width: 250px;
 }
 
 .sidebar .nav-link {
@@ -46,11 +47,11 @@ body {
 }
 
 .sidebar .nav-link i {
-  font-size: 20px; /* Tamaño del icono */
+  font-size: 20px;
 }
 
 .sidebar.collapsed .nav-link i {
-  font-size: 25px; /* Icono más grande cuando está colapsada */
+  font-size: 25px;
 }
 
 .sidebar.collapsed .nav-link:hover {
@@ -58,7 +59,7 @@ body {
 }
 
 .sidebar .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Hover general para texto y icono */
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .sidebar .toggle-btn {
@@ -82,25 +83,59 @@ body {
 }
 
 .collapsed .sidebar-text {
-  opacity: 0; /* Ocultar texto cuando está colapsada */
+  opacity: 0;
 }
 
 .sidebar.expanded .sidebar-text {
-  opacity: 1; /* Mostrar texto cuando está expandida */
+  opacity: 1;
+}
+
+/* Barra de menú superior */
+.menu-bar {
+  position: fixed;
+  top: 0;
+  left: 80px; /* Espacio para la barra lateral */
+  right: 0;
+  height: 60px;
+  background: var(--ColorS);
+  color: var(--ColorP);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.sidebar.expanded ~ .menu-bar {
+  left: 250px; /* Se ajusta con la barra lateral expandida */
+}
+
+.menu-bar nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  gap: 1rem;
+}
+
+.menu-bar nav a {
+  text-decoration: none;
+  color: var(--ColorP);
+  font-weight: bold;
 }
 
 /* Desplazamiento del contenido */
 .content {
   flex: 1;
-  transition: margin-left 0.3s ease; /* Transición de desplazamiento */
+  margin-top: 60px; 
+  transition: margin-left 0.3s ease;
+  padding: 1rem;
 }
 
-.shifted {
-  margin-left: 250px; /* Desplazar el contenido cuando la barra lateral está expandida */
+.sidebar.expanded ~ .content {
+  margin-left: 250px;
 }
 
-.collapsed + .content {
-  margin-left: 80px; /* Desplazar el contenido cuando la barra lateral está colapsada */
+.sidebar.collapsed ~ .content {
+  margin-left: 80px;
 }
-
-

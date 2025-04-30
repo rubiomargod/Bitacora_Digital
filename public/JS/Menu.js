@@ -3,5 +3,4 @@ function toggleSidebar() {
   const content = document.getElementById('content');
   sidebar.classList.toggle('collapsed'); // Alternar la clase 'collapsed'
   sidebar.classList.toggle('expanded'); // Alternar la clase 'expanded'
-  content.classList.toggle('shifted'); // Hacer que el contenido se desplace
 }
