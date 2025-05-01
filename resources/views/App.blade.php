@@ -20,6 +20,9 @@
     @yield('body')
   </div>
   @livewireScripts
+  @stack('scripts')
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
 </body>
 
 </html>
