@@ -2,9 +2,14 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use App\Models\User;
+use App\Mail\AdminPasswordResetMail;
 
 class Login extends Component
 {
@@ -17,55 +22,59 @@ class Login extends Component
   {
     return view('livewire.login');
   }
+
+  // Cambiar el estado a "Restablecer" para mostrar el formulario de restablecimiento
   public function Restablecer()
   {
     $this->Estatus = "Restablecer";
-  }
-  public function Acceder()
-  {
-    $user = User::where('email', $this->Email)->first();
-    if (!empty($user)) {
-      if ($this->Clave == $user->password)
-        if ($user->role == 'Director') {
-          session(['ROLE' => 'Director']);
-          return redirect()->to('/');
-        } else {
-          session(['ROLE' => 'Maestro']);
-          return redirect()->to('/');
-        }
-      else {
-        $this->Errores = 'Correo o contraseña incorrectos.';
-        $this->dispatch('AbrirMensaje'); // Emitimos evento
-      }
-    } else {
-      $this->Errores = 'Correo o contraseña incorrectos.';
-      $this->dispatch('AbrirMensaje'); // Emitimos evento
-    }
+    $this->Errores = "";
   }
 
+  // Lógica para iniciar sesión
+  public function Acceder()
+  {
+    $this->validate([
+      'Email' => 'required|email',
+      'Clave' => 'required',
+    ]);
+
+    $user = User::where('email', $this->Email)->first();
+
+    if ($user && Hash::check($this->Clave, $user->password)) {
+      Auth::login($user);
+      session(['ROLE' => $user->role === 'Director' ? 'Director' : 'Maestro']);
+
+      return redirect()->route('/');
+    }
+
+    $this->Errores = 'Correo o contraseña incorrectos.';
+    session()->flash('error', $this->Errores);
+  }
 
   public function sendResetLinkEmail()
   {
-    $this->Estatus = "Acceder";
-    dd("Correo Enviado XD");
-    $Correo->validate(['correo' => 'required|email']);
+    $this->validate([
+      'Email' => 'required|email',
+    ]);
 
-    $admin = User::where('correo', $Correo->correo)->first();
-
-    if ($admin) {
+    $user = User::where('email', $this->Email)->first();
+    if ($user) {
       $token = Str::random(60);
 
-      // Guardar el token en la tabla password_reset_tokens
+      // Almacenamos el token en la base de datos
       DB::table('password_reset_tokens')->updateOrInsert(
-        ['email' => $admin->correo],
-        ['token' => $token, 'created_at' => now()]
+        ['email' => $user->email],
+        [
+          'token' => $token,
+          'created_at' => now()
+        ]
       );
 
-      Mail::to($admin->correo)->send(new AdminPasswordResetMail($token));
-
-      return back()->with('status', 'Se ha enviado un enlace de restablecimiento a tu correo.');
+      // Enviamos el correo con el token y el email
+      Mail::to($user->email)->send(new AdminPasswordResetMail($token, $user->email));
+      session()->flash('status', 'Se ha enviado un enlace de restablecimiento a tu correo.');
+    } else {
+      session()->flash('error', 'No se encontró un usuario con este correo.');
     }
-
-    return back()->withErrors(['correo' => 'No se encontró un administrador con este correo.']);
   }
 }
