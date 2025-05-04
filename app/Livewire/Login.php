@@ -23,7 +23,6 @@ class Login extends Component
     return view('livewire.login');
   }
 
-  // Cambiar el estado a "Restablecer" para mostrar el formulario de restablecimiento
   public function Restablecer()
   {
     $this->Estatus = "Restablecer";
@@ -44,7 +43,7 @@ class Login extends Component
       Auth::login($user);
       session(['ROLE' => $user->role === 'Director' ? 'Director' : 'Maestro']);
 
-      return redirect()->route('/');
+      return redirect()->route('/Inicio');
     }
 
     $this->Errores = 'Correo o contraseña incorrectos.';
@@ -61,7 +60,6 @@ class Login extends Component
     if ($user) {
       $token = Str::random(60);
 
-      // Almacenamos el token en la base de datos
       DB::table('password_reset_tokens')->updateOrInsert(
         ['email' => $user->email],
         [
@@ -70,7 +68,6 @@ class Login extends Component
         ]
       );
 
-      // Enviamos el correo con el token y el email
       Mail::to($user->email)->send(new AdminPasswordResetMail($token, $user->email));
       session()->flash('status', 'Se ha enviado un enlace de restablecimiento a tu correo.');
     } else {

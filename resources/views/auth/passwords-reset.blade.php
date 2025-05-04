@@ -54,7 +54,7 @@
                 <button type="submit" class="btn btn-primary w-100">
                   Cambiar contraseña
                 </button>
-                <button type="button" class="btn btn-link mt-3" onclick="window.location.href='/Login'">
+                <button type="button" class="btn btn-link mt-3" onclick="window.location.href='/'">
                   Volver al inicio
                 </button>
               </div>
