@@ -6,13 +6,15 @@ use Livewire\Component;
 use App\Models\Maestros;
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class LMaestros extends Component
 {
   use WithFileUploads;
 
   protected $rules = [
-    'archivo' => 'required|file|max:10240',
+    'archivo' => 'required|file|mimes:txt,csv',
   ];
 
   public $Accion, $ID, $Nombre, $Apellidos, $Usuario, $password, $Telefono, $Correo, $Status, $archivo;
@@ -42,49 +44,44 @@ class LMaestros extends Component
     try {
       $path = $this->archivo->store('importaciones');
       $fullPath = storage_path('app/' . $path);
+      if (!file_exists($fullPath)) {
+        throw new \Exception("No se encontró el archivo en la ruta: $fullPath");
+      }
       $file = fopen($fullPath, 'r');
       $lineNumber = 1;
-
       while (($line = fgets($file)) !== false) {
         $line = trim($line);
-        if (empty($line)) continue;
-
-        $campos = str_getcsv($line, ',');
+        if (empty($line)) {
+          $lineNumber++;
+          continue;
+        }
+        $campos = str_getcsv($line);
         if (count($campos) !== 7) {
           throw new \Exception("Error en línea $lineNumber: número incorrecto de columnas.");
         }
-
         [$nombre, $apellidos, $usuario, $password, $telefono, $correo, $status] = $campos;
         $maestro = Maestros::where('Usuario', $usuario)->first();
-
+        $datos = [
+          'Nombre'    => $nombre,
+          'Apellidos' => $apellidos,
+          'Usuario'   => $usuario,
+          'password'  => bcrypt($password),
+          'Telefono'  => $telefono,
+          'Correo'    => $correo,
+          'Status'    => $status,
+        ];
+        Log::info("Procesando línea $lineNumber: ", $datos);
         if (!$maestro) {
-          $maestro = new Maestros([
-            'Nombre'    => $nombre,
-            'Apellidos' => $apellidos,
-            'Usuario'   => $usuario,
-            'password'  => bcrypt($password),
-            'Telefono'  => $telefono,
-            'Correo'    => $correo,
-            'Status'    => $status,
-          ]);
-          $maestro->save();
+          Maestros::create($datos);
         } else {
-          $maestro->update([
-            'Nombre'    => $nombre,
-            'Apellidos' => $apellidos,
-            'password'  => bcrypt($password),
-            'Telefono'  => $telefono,
-            'Correo'    => $correo,
-            'Status'    => $status,
-          ]);
+          $maestro->update($datos);
         }
-
         $lineNumber++;
       }
-
       fclose($file);
       session()->flash('success', 'Archivo importado y maestros procesados correctamente.');
     } catch (\Exception $e) {
+      Log::error("Error al importar: " . $e->getMessage());
       session()->flash('error', 'Error al importar o procesar el archivo: ' . $e->getMessage());
     }
   }
@@ -121,10 +118,17 @@ class LMaestros extends Component
         'Nombre' => $this->Nombre,
         'Apellidos' => $this->Apellidos,
         'Usuario' => $this->Usuario,
-        'password' => $this->password,
+        'password' => bcrypt($this->password),
         'Telefono' => $this->Telefono,
         'Correo' => $this->Correo,
-        'Status' => $this->Status,
+        'Status' => "Activo",
+      ]);
+
+      User::create([
+        'name' => $this->Nombre,
+        'email' => $this->Correo,
+        'password' => bcrypt($this->password),
+        'role' => "Maestro",
       ]);
 
       $this->Limpiar();
@@ -134,6 +138,7 @@ class LMaestros extends Component
     }
   }
 
+
   public function AbrirEditarMaestro($ID)
   {
     $this->Accion = "EditarMaestro";
@@ -142,32 +147,31 @@ class LMaestros extends Component
     $this->Nombre = $maestro->Nombre;
     $this->Apellidos = $maestro->Apellidos;
     $this->Usuario = $maestro->Usuario;
-    $this->password = $maestro->Password;
     $this->Telefono = $maestro->Telefono;
     $this->Correo = $maestro->Correo;
     $this->Status = $maestro->Status;
     $this->dispatch('AbrirNuevoMaestro');
   }
+
   public function EditarMaestro()
   {
     try {
       $maestro = Maestros::findOrFail($this->ID);
-
-      $maestro->update([
-        'Nombre' => $this->Nombre,
-        'Apellidos' => $this->Apellidos,
-        'Usuario' => $this->Usuario,
-        'password' => $this->password,
-        'Telefono' => $this->Telefono,
-        'Correo' => $this->Correo,
-        'Status' => $this->Status,
-      ]);
+      $maestro->Nombre = $this->Nombre;
+      $maestro->Apellidos = $this->Apellidos;
+      $maestro->Usuario = $this->Usuario;
+      $maestro->Telefono = $this->Telefono;
+      $maestro->Correo = $this->Correo;
+      $maestro->Status = $this->Status;
+      $maestro->save();
       $this->Limpiar();
-      return redirect()->route('MAESTROS')->with('success', 'Maestro Editado correctamente.');
+      return redirect()->route('MAESTROS')->with('success', 'Maestro editado correctamente.');
     } catch (\Exception $e) {
-      return redirect()->back()->withErrors(['error' => 'Hubo un problema al Editar el Maestro. Inténtalo nuevamente.'])->withInput();
+      return redirect()->back()->withErrors(['error' => 'Hubo un problema al editar el Maestro. Inténtalo nuevamente.'])->withInput();
     }
   }
+
+
   public function AbrirEliminarMaestro($ID)
   {
     $maestro = Maestros::find($ID);
