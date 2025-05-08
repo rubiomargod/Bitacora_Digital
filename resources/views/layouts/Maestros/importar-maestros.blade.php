@@ -4,14 +4,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ModalImportarLabel">Importar Maestros</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" wire:click="AbrirImportar"></button>
       </div>
       <div class="modal-body">
         <!-- Formulario de Importación -->
         <form wire:submit.prevent="importar">
           <div class="mb-3">
             <label for="archivo" class="form-label">Seleccionar Archivo (.txt o .csv)</label>
-            <input type="file" id="archivo" wire:model="archivo" accept=".txt,.csv" class="form-control">
+            <input type="file" id="archivo" wire:model="archivo" class="form-control">
             @error('archivo')
             <div class="text-danger mt-1">{{ $message }}</div>
             @enderror

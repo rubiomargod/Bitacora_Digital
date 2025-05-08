@@ -13,28 +13,8 @@ class LMaestros extends Component
 {
   use WithFileUploads;
 
-  protected $rules = [
-    'archivo' => 'required|file|mimes:txt,csv',
-  ];
+  public $Accion, $ID, $Nombre, $Apellidos, $Usuario, $password, $Telefono, $Correo, $Status, $archivo, $Contenido;
 
-  public $Accion, $ID, $Nombre, $Apellidos, $Usuario, $password, $Telefono, $Correo, $Status, $archivo;
-
-  public function mount($ID = null)
-  {
-    if ($ID) {
-      $maestro = Maestros::find($ID);
-      if ($maestro) {
-        $this->ID = $maestro->id;
-        $this->Nombre = $maestro->Nombre;
-        $this->Apellidos = $maestro->Apellidos;
-        $this->Usuario = $maestro->Usuario;
-        $this->password = $maestro->password;
-        $this->Telefono = $maestro->Telefono;
-        $this->Correo = $maestro->Correo;
-        $this->Status = $maestro->Status;
-      }
-    }
-  }
   public function AbrirImportar()
   {
     $this->dispatch('AbrirImportar');
@@ -69,7 +49,7 @@ class LMaestros extends Component
 
     fclose($file);
     $this->dispatch('CerrarImportar');
-    session()->flash('message', 'Usuarios importados correctamente.');
+    //session()->flash('message', 'Usuarios importados correctamente.');
   }
   public $MAESTROS = [];
   public function render()

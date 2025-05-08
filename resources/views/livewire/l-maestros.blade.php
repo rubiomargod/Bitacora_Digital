@@ -7,10 +7,10 @@
   </div>
   <div class="card">
     <div class="card-body p-0">
+      @include('layouts.Maestros.importar-maestros')
       @include('layouts.Maestros.DTGMaestros')
+      @include('layouts.Maestros.FRMNuevo')
+      @include('layouts.Maestros.FRMEliminar')
     </div>
-    @include('layouts.Maestros.FRMNuevo')
-    @include('layouts.Maestros.FRMEliminar')
   </div>
-  @include('layouts.Maestros.importar-maestros')
 </div>

@@ -20,8 +20,8 @@
         <td>{{ $maestro->Correo }}</td>
         <td>{{ $maestro->Telefono }}</td>
         <td>
-          <span class="badge {{ $maestro->Status ? 'bg-success' : 'bg-danger' }}">
-            {{ $maestro->Status ? 'Activo' : 'Inactivo' }}
+          <span class="badge {{ $maestro->Status=='Activo' ? 'bg-success' : 'bg-danger' }}">
+            {{ ($maestro->Status) }}
           </span>
         </td>
         <td>
