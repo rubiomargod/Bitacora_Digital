@@ -10,7 +10,7 @@
         <!-- Formulario de Importación -->
         <form wire:submit.prevent="importar">
           <div class="mb-3">
-            <label for="archivo" class="form-label">Seleccionar Archivo (.csv)</label>
+            <label for="archivo" class="form-label">Seleccionar Archivo (.txt o .csv)</label>
             <input type="file" id="archivo" wire:model="archivo" accept=".txt,.csv" class="form-control">
             @error('archivo')
             <div class="text-danger mt-1">{{ $message }}</div>
@@ -32,9 +32,10 @@
       let modal = new bootstrap.Modal(document.getElementById('ModalImportar'));
       modal.show();
     });
+
     Livewire.on('CerrarImportar', () => {
       let modal = bootstrap.Modal.getInstance(document.getElementById('ModalImportar'));
-      document.getElementById('ModalImportar').style.display = 'none';
+      modal.hide();
     });
   });
 </script>

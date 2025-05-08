@@ -11,6 +11,12 @@ use App\Models\User;
 
 class LMaestros extends Component
 {
+  use WithFileUploads;
+
+  protected $rules = [
+    'archivo' => 'required|file|mimes:txt,csv',
+  ];
+
   public $Accion, $ID, $Nombre, $Apellidos, $Usuario, $password, $Telefono, $Correo, $Status, $archivo;
 
   public function mount($ID = null)
@@ -29,12 +35,10 @@ class LMaestros extends Component
       }
     }
   }
-
-  use WithFileUploads;
-
-  public $csvFile;
-  public $preview = [];
-
+  public function AbrirImportar()
+  {
+    $this->dispatch('AbrirImportar');
+  }
   public function importar()
   {
     $this->validate([
@@ -43,13 +47,15 @@ class LMaestros extends Component
 
     $path = $this->archivo->getRealPath();
     $file = fopen($path, 'r');
+
     $firstLine = true;
 
     while (($data = fgetcsv($file, 1000, ',')) !== false) {
       if ($firstLine) {
-        $firstLine = false;
+        $firstLine = false; // Saltar encabezado
         continue;
       }
+
       Maestros::create([
         'Nombre'    => $data[0],
         'Apellidos' => $data[1],
@@ -60,27 +66,17 @@ class LMaestros extends Component
         'Status'    => $data[6],
       ]);
     }
+
     fclose($file);
+    $this->dispatch('CerrarImportar');
     session()->flash('message', 'Usuarios importados correctamente.');
   }
-  public function AbrirImportar()
-  {
-    $this->dispatch('AbrirImportar');
-  }
-
-  public function CerrarImportar()
-  {
-    $this->dispatch('CerrarImportar');
-  }
-
   public $MAESTROS = [];
-
   public function render()
   {
     $this->MAESTROS = Maestros::all();
     return view('livewire.l-maestros');
   }
-
   public function Limpiar()
   {
     $this->reset([
