@@ -20,9 +20,12 @@
         <td>{{ $maestro->Correo }}</td>
         <td>{{ $maestro->Telefono }}</td>
         <td>
-          <span class="badge {{ $maestro->Status ? 'bg-success' : 'bg-danger' }}">
-            {{ $maestro->Status ? 'Activo' : 'Inactivo' }}
-          </span>
+          <div class="status-container">
+            <span class="badge {{ $maestro->Status == 'Activo' ? 'bg-success' : 'bg-danger' }}">
+              {{ ($maestro->Status) }}
+            </span>
+          </div>
+
         </td>
         <td>
           <button class="btn btn-warning btn-sm" wire:click="AbrirEditarMaestro({{ $maestro->id }})">Editar</button>

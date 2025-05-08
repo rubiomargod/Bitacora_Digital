@@ -15,5 +15,5 @@ class Maestros extends Model
     if ($value) {
       $this->attributes['password'] = Hash::make($value);
     }
-  }
+  }   
 }
