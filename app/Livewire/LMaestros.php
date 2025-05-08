@@ -35,57 +35,42 @@ class LMaestros extends Component
       }
     }
   }
-
+  public function AbrirImportar()
+  {
+    $this->dispatch('AbrirImportar');
+  }
   public function importar()
   {
-    $this->validate();
-    $this->Accion = "importar";
+    $this->validate([
+      'archivo' => 'required|file|mimes:csv,txt|max:2048',
+    ]);
 
-    try {
-      $path = $this->archivo->store('importaciones');
-      $fullPath = storage_path('app/' . $path);
-      if (!file_exists($fullPath)) {
-        throw new \Exception("No se encontró el archivo en la ruta: $fullPath");
+    $path = $this->archivo->getRealPath();
+    $file = fopen($path, 'r');
+
+    $firstLine = true;
+
+    while (($data = fgetcsv($file, 1000, ',')) !== false) {
+      if ($firstLine) {
+        $firstLine = false; // Saltar encabezado
+        continue;
       }
-      $file = fopen($fullPath, 'r');
-      $lineNumber = 1;
-      while (($line = fgets($file)) !== false) {
-        $line = trim($line);
-        if (empty($line)) {
-          $lineNumber++;
-          continue;
-        }
-        $campos = str_getcsv($line);
-        if (count($campos) !== 7) {
-          throw new \Exception("Error en línea $lineNumber: número incorrecto de columnas.");
-        }
-        [$nombre, $apellidos, $usuario, $password, $telefono, $correo, $status] = $campos;
-        $maestro = Maestros::where('Usuario', $usuario)->first();
-        $datos = [
-          'Nombre'    => $nombre,
-          'Apellidos' => $apellidos,
-          'Usuario'   => $usuario,
-          'password'  => bcrypt($password),
-          'Telefono'  => $telefono,
-          'Correo'    => $correo,
-          'Status'    => $status,
-        ];
-        Log::info("Procesando línea $lineNumber: ", $datos);
-        if (!$maestro) {
-          Maestros::create($datos);
-        } else {
-          $maestro->update($datos);
-        }
-        $lineNumber++;
-      }
-      fclose($file);
-      session()->flash('success', 'Archivo importado y maestros procesados correctamente.');
-    } catch (\Exception $e) {
-      Log::error("Error al importar: " . $e->getMessage());
-      session()->flash('error', 'Error al importar o procesar el archivo: ' . $e->getMessage());
+
+      Maestros::create([
+        'Nombre'    => $data[0],
+        'Apellidos' => $data[1],
+        'Usuario'   => $data[2],
+        'password'  => Hash::make($data[3]),
+        'Telefono'  => $data[4],
+        'Correo'    => $data[5],
+        'Status'    => $data[6],
+      ]);
     }
-  }
 
+    fclose($file);
+    $this->dispatch('CerrarImportar');
+    session()->flash('message', 'Usuarios importados correctamente.');
+  }
   public $MAESTROS = [];
   public function render()
   {
