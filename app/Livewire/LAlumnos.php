@@ -5,11 +5,14 @@ namespace App\Livewire;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Alumnos;
+use Livewire\WithFileUploads;
+
 
 class LAlumnos extends Component
 {
   public $ALUMNOS = [];
-  public $ID, $Nombre, $Apellidos, $Grado, $Grupo, $Status, $Contenido;
+  public $ID, $Nombre, $Apellidos, $Grado, $Grupo, $Status, $Contenido, $archivo;
+  use WithFileUploads;
   public function render()
   {
     return view('livewire.l-alumnos');
@@ -109,5 +112,40 @@ class LAlumnos extends Component
     $this->Grupo = $Alumno->Grupo;
     $this->Status = $Alumno->Status;
     $this->dispatch('AbrirModelAlta');
+  }
+  public function AbrirImportar()
+  {
+    $this->dispatch('AbrirImportar');
+  }
+  public function CerrarImportar()
+  {
+    $this->dispatch('CerrarImportar');
+  }
+  public function importar()
+  {
+    $this->validate([
+      'archivo' => 'required|file|mimes:csv,txt|max:2048',
+    ]);
+
+    $path = $this->archivo->getRealPath();
+    $file = fopen($path, 'r');
+
+    $firstLine = true;
+
+    while (($data = fgetcsv($file, 1000, ',')) !== false) {
+      if ($firstLine) {
+        $firstLine = false; // Saltar encabezado
+        continue;
+      }
+
+      Alumnos::create([
+        'Nombre'        => $data[0],
+        'Apellidos'     => $data[1],
+        'Grado'         => $data[2],
+        'Grupo'         => $data[3],
+        'Status'        => $data[4],
+      ]);
+    }
+    fclose($file);
   }
 }

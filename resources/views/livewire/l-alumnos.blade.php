@@ -7,6 +7,7 @@
     @include('Layouts.Alumnos.FRMNuevo')
     @include('Layouts.Alumnos.FRMAlta')
     @include('Layouts.Alumnos.FRMBaja')
+    @include('Layouts.Alumnos.FRMImportar')
     @if($Contenido == 'Buscar')
     @include('Layouts.Alumnos.DTGAlumnos')
     @endif
