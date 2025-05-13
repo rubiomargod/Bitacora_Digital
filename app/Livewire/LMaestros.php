@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class LMaestros extends Component
 {
   use WithFileUploads;
-
+  public $buscarNombre = '';
   public $Accion, $ID, $Nombre, $Apellidos, $Usuario, $password, $Telefono, $Correo, $Status, $archivo, $Contenido;
 
   public function AbrirImportar()
@@ -23,7 +24,6 @@ class LMaestros extends Component
   {
     $this->dispatch('CerrarImportar');
   }
-
   public function importarm()
   {
     $this->validate([
@@ -56,11 +56,24 @@ class LMaestros extends Component
   }
 
   public $MAESTROS = [];
+
+
   public function render()
   {
-    $this->MAESTROS = Maestros::all();
-    return view('livewire.l-maestros');
+    $maestros = $this->buscarNombre
+      ? Maestros::where('Nombre', 'like', '%' . $this->buscarNombre . '%')->get()
+      : Maestros::all();
+
+    return view('livewire.l-maestros', [
+      'maestros' => $maestros,
+    ]);
   }
+
+  public function Filtrar()
+  {
+    $this->MAESTROS = Maestros::where('Nombre', 'like', '%' . $this->buscarNombre . '%')->get();
+  }
+
   public function Limpiar()
   {
     $this->reset([

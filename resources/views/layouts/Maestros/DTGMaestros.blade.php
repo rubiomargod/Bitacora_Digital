@@ -1,8 +1,8 @@
-@if (empty($MAESTROS))
+@if (!empty($buscarNombre) && empty($MAESTROS))
 <div class="alert alert-warning text-center mt-3">
   ⚠️ No se encontraron maestros con los filtros seleccionados.
 </div>
-@else
+@elseif (!empty($MAESTROS))
 <div style="max-height: 510px; overflow-y: auto;" class="mt-3">
   <ul class="list-group">
     @foreach ($MAESTROS as $maestro)
@@ -21,10 +21,12 @@
       </div>
       <div class="d-flex flex-column gap-2">
         <button class="btn btn-warning btn-sm" wire:click="AbrirEditarMaestro({{ $maestro->id }})"> Editar</button>
-        <button class="btn btn-danger btn-sm" wire:click="AbrirEliminarMaestro({{ $maestro->id }})"> Eliminar</button>
+        <button class="btn btn-danger btn-sm" wire:click="AbrirEliminarMaestro({{ $maestro->id }})">🗑️ Eliminar</button>
       </div>
     </li>
     @endforeach
   </ul>
 </div>
+@else
+
 @endif

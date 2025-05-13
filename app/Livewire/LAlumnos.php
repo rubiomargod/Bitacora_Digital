@@ -21,6 +21,7 @@ class LAlumnos extends Component
   {
     $this->dispatch('abrirNuevoAlumno');
   }
+
   public function Filtrar()
   {
     $this->Contenido = 'Buscar';
@@ -36,6 +37,7 @@ class LAlumnos extends Component
     }
     $this->ALUMNOS = DB::select($sql, $bindings);
   }
+  
   public function Limpiar()
   {
     $this->reset(['Nombre', 'Apellidos', 'Grado', 'Grupo', 'Status']);
