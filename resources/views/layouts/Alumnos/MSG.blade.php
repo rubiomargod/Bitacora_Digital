@@ -33,6 +33,9 @@
     if (modal) {
       var modalInstance = new bootstrap.Modal(modal);
       modalInstance.show();
+      setTimeout(() => {
+        modalInstance.hide();
+      }, 2000);
     }
   });
 </script>

@@ -8,38 +8,23 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class LMaestros extends Component
 {
   use WithFileUploads;
+  public $buscarNombre = '';
+  public $Accion, $ID, $Nombre, $Apellidos, $Usuario, $password, $Telefono, $Correo, $Status, $archivo, $Contenido;
 
-  protected $rules = [
-    'archivo' => 'required|file|mimes:txt,csv',
-  ];
-
-  public $Accion, $ID, $Nombre, $Apellidos, $Usuario, $password, $Telefono, $Correo, $Status, $archivo;
-
-  public function mount($ID = null)
-  {
-    if ($ID) {
-      $maestro = Maestros::find($ID);
-      if ($maestro) {
-        $this->ID = $maestro->id;
-        $this->Nombre = $maestro->Nombre;
-        $this->Apellidos = $maestro->Apellidos;
-        $this->Usuario = $maestro->Usuario;
-        $this->password = $maestro->password;
-        $this->Telefono = $maestro->Telefono;
-        $this->Correo = $maestro->Correo;
-        $this->Status = $maestro->Status;
-      }
-    }
-  }
   public function AbrirImportar()
   {
     $this->dispatch('AbrirImportar');
   }
-  public function importar()
+  public function CerrarImportar()
+  {
+    $this->dispatch('CerrarImportar');
+  }
+  public function importarm()
   {
     $this->validate([
       'archivo' => 'required|file|mimes:csv,txt|max:2048',
@@ -52,10 +37,9 @@ class LMaestros extends Component
 
     while (($data = fgetcsv($file, 1000, ',')) !== false) {
       if ($firstLine) {
-        $firstLine = false; // Saltar encabezado
+        $firstLine = false;
         continue;
       }
-
       Maestros::create([
         'Nombre'    => $data[0],
         'Apellidos' => $data[1],
@@ -66,17 +50,30 @@ class LMaestros extends Component
         'Status'    => $data[6],
       ]);
     }
-
     fclose($file);
     $this->dispatch('CerrarImportar');
-    session()->flash('message', 'Usuarios importados correctamente.');
+    return redirect()->route('MAESTROS')->with('success', 'Maestros importados.');
   }
+
   public $MAESTROS = [];
+
+
   public function render()
   {
-    $this->MAESTROS = Maestros::all();
-    return view('livewire.l-maestros');
+    $maestros = $this->buscarNombre
+      ? Maestros::where('Nombre', 'like', '%' . $this->buscarNombre . '%')->get()
+      : Maestros::all();
+
+    return view('livewire.l-maestros', [
+      'maestros' => $maestros,
+    ]);
   }
+
+  public function Filtrar()
+  {
+    $this->MAESTROS = Maestros::where('Nombre', 'like', '%' . $this->buscarNombre . '%')->get();
+  }
+
   public function Limpiar()
   {
     $this->reset([

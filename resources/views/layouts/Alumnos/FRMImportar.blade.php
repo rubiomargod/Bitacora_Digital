@@ -3,12 +3,12 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow-lg border-0">
         <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="ModalImportarLabel">📥 Importar Maestros</h5>
+          <h5 class="modal-title" id="ModalImportarLabel">📥 Importar Alumnos</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
           <!-- Formulario de Importación -->
-          <form wire:submit.prevent="importarm">
+          <form wire:submit.prevent="importar">
             <div class="mb-3">
               <label for="archivo" class="form-label">Selecciona archivo (.csv o .txt)</label>
               <input type="file" id="archivo" wire:model="archivo" class="form-control">
@@ -20,12 +20,13 @@
                   <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Cargando...</span>
                   </div>
-                  <span class="ms-2">Importando maestros...</span>
+                  <span class="ms-2">Importando alumnos...</span>
                 </div>
               </div>
             </div>
+
             <button type="submit" class="btn btn-success w-100" wire:loading.attr="disabled">
-              📊 Importar Maestros
+              📊 Importar Alumnos
             </button>
           </form>
         </div>
