@@ -21,6 +21,7 @@ class LAlumnos extends Component
   {
     $this->dispatch('abrirNuevoAlumno');
   }
+
   public function Filtrar()
   {
     $this->Contenido = 'Buscar';
@@ -36,6 +37,7 @@ class LAlumnos extends Component
     }
     $this->ALUMNOS = DB::select($sql, $bindings);
   }
+  
   public function Limpiar()
   {
     $this->reset(['Nombre', 'Apellidos', 'Grado', 'Grupo', 'Status']);
@@ -121,6 +123,7 @@ class LAlumnos extends Component
   {
     $this->dispatch('CerrarImportar');
   }
+
   public function importar()
   {
     $this->validate([
@@ -134,7 +137,7 @@ class LAlumnos extends Component
 
     while (($data = fgetcsv($file, 1000, ',')) !== false) {
       if ($firstLine) {
-        $firstLine = false; // Saltar encabezado
+        $firstLine = false;
         continue;
       }
 
@@ -147,5 +150,7 @@ class LAlumnos extends Component
       ]);
     }
     fclose($file);
+    $this->dispatch('CerrarImportar');
+    return redirect()->route('ALUMNOS')->with('success', 'Alumnos importados.');
   }
 }
