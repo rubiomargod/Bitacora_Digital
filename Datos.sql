@@ -1,107 +1,29 @@
-INSERT INTO users (name, email, email_verified_at, password, role, remember_token, created_at, updated_at) VALUES
-('Director', 'Director@gmail.com', NOW(), 'Director', 'Director', NULL, NOW(), NOW()),
-('Maestro', 'Maestro@gmail.com', NOW(), 'Maestro', 'Maestro', NULL, NOW(), NOW());
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Juan', 'Pérez García', 'juan.perez@example.com', '5512345678', 'Av. Siempre Viva 123, Springfield', 'INE1234567890', 'Activo');
 
-INSERT INTO alumnos (Nombre, Apellidos, Grado, Grupo, Status, created_at, updated_at) VALUES
-('Ana', 'Pérez García', '3', 'A', 'Activo', NOW(), NOW()),
-('Luis', 'González López', '2', 'B', 'Activo', NOW(), NOW()),
-('Sofía', 'Martínez Rodríguez', '1', 'C', 'Activo', NOW(), NOW()),
-('Carlos', 'Sánchez Vargas', '3', 'B', 'Activo', NOW(), NOW()),
-('Valentina', 'Ramírez Castro', '2', 'A', 'Activo', NOW(), NOW()),
-('Mateo', 'Flores Díaz', '1', 'A', 'Activo', NOW(), NOW()),
-('Isabella', 'Ruiz Jiménez', '3', 'C', 'Activo', NOW(), NOW()),
-('Sebastián', 'Torres Morales', '2', 'C', 'Activo', NOW(), NOW()),
-('Camila', 'Vargas Núñez', '1', 'B', 'Activo', NOW(), NOW()),
-('Daniel', 'Hernández Soto', '3', 'A', 'Activo', NOW(), NOW()),
-('Emilia', 'Díaz Chávez', '2', 'B', 'Activo', NOW(), NOW()),
-('Javier', 'Rojas Flores', '1', 'C', 'Activo', NOW(), NOW()),
-('Renata', 'Jiménez Castillo', '3', 'B', 'Activo', NOW(), NOW()),
-('Andrés', 'Morales Ruiz', '2', 'A', 'Activo', NOW(), NOW()),
-('Victoria', 'Soto Vargas', '1', 'A', 'Activo', NOW(), NOW()),
-('Diego', 'Castro Hernández', '3', 'C', 'Activo', NOW(), NOW()),
-('Paula', 'Núñez Díaz', '2', 'C', 'Activo', NOW(), NOW()),
-('Gabriel', 'Chávez Rojas', '1', 'B', 'Activo', NOW(), NOW()),
-('Fernanda', 'Castillo Jiménez', '3', 'A', 'Activo', NOW(), NOW()),
-('Joaquín', 'Ruiz Morales', '2', 'B', 'Activo', NOW(), NOW()),
-('Mariana', 'Vargas Soto', '1', 'C', 'Activo', NOW(), NOW()),
-('Santiago', 'Hernández Castro', '3', 'B', 'Activo', NOW(), NOW()),
-('Valeria', 'Díaz Núñez', '2', 'A', 'Activo', NOW(), NOW()),
-('Nicolás', 'Rojas Chávez', '1', 'A', 'Activo', NOW(), NOW()),
-('Ximena', 'Jiménez Flores', '3', 'C', 'Activo', NOW(), NOW()),
-('Adrián', 'Morales Castillo', '2', 'C', 'Activo', NOW(), NOW()),
-('Lucía', 'Soto Ruiz', '1', 'B', 'Activo', NOW(), NOW()),
-('Mateo', 'Castro Vargas', '3', 'A', 'Activo', NOW(), NOW()),
-('Regina', 'Núñez Hernández', '2', 'B', 'Activo', NOW(), NOW()),
-('Emilio', 'Chávez Díaz', '1', 'C', 'Activo', NOW(), NOW()),
-('Isabela', 'Castillo Rojas', '3', 'B', 'Activo', NOW(), NOW()),
-('Leonardo', 'Ruiz Jiménez', '2', 'A', 'Activo', NOW(), NOW()),
-('Monserrat', 'Vargas Morales', '1', 'A', 'Activo', NOW(), NOW()),
-('Alejandro', 'Hernández Soto', '3', 'C', 'Activo', NOW(), NOW()),
-('Camila', 'Díaz Castro', '2', 'C', 'Activo', NOW(), NOW()),
-('Sebastián', 'Rojas Núñez', '1', 'B', 'Activo', NOW(), NOW()),
-('Natalia', 'Jiménez Chávez', '3', 'A', 'Activo', NOW(), NOW()),
-('Andrés', 'Morales Flores', '2', 'B', 'Activo', NOW(), NOW()),
-('Sofía', 'Soto Castillo', '1', 'C', 'Activo', NOW(), NOW()),
-('Carlos', 'Castro Ruiz', '3', 'B', 'Activo', NOW(), NOW()),
-('Valentina', 'Núñez Vargas', '2', 'A', 'Activo', NOW(), NOW()),
-('Mateo', 'Chávez Hernández', '1', 'A', 'Activo', NOW(), NOW()),
-('Isabella', 'Castillo Díaz', '3', 'C', 'Activo', NOW(), NOW()),
-('Sebastián', 'Ruiz Rojas', '2', 'C', 'Activo', NOW(), NOW()),
-('Camila', 'Vargas Jiménez', '1', 'B', 'Activo', NOW(), NOW()),
-('Daniel', 'Hernández Morales', '3', 'A', 'Activo', NOW(), NOW()),
-('Emilia', 'Díaz Soto', '2', 'B', 'Activo', NOW(), NOW()),
-('Javier', 'Rojas Castro', '1', 'C', 'Activo', NOW(), NOW()),
-('Renata', 'Jiménez Núñez', '3', 'B', 'Activo', NOW(), NOW());
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('María', 'López Fernández', 'maria.lopez@example.com', '5587654321', 'Calle Falsa 123, Ciudad México', 'INE0987654321', 'Activo');
 
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Carlos', 'González Rodríguez', 'carlos.gonzalez@example.com', '5555555555', 'Blvd. de los Sueños 456, Guadalajara', 'INE1122334455', 'Activo');
 
-INSERT INTO maestros (Nombre, Apellidos, Usuario, Password, Telefono, Correo, Status, created_at, updated_at) VALUES
-('María', 'López Pérez', 'marialp', 'clave123', '5512345678', 'maria.lopez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Juan', 'Rodríguez Gómez', 'juanrg', 'secreto456', '5598765432', 'juan.rodriguez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Laura', 'Martínez Sánchez', 'lauram', 'miclave789', '5511223344', 'laura.martinez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Pedro', 'García Fernández', 'pedrogf', 'otraclave', '5555667788', 'pedro.garcia@ejemplo.com', 'Activo', NOW(), NOW()),
-('Ana', 'Sánchez Ruiz', 'anasr', 'claveunica', '5544332211', 'ana.sanchez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Carlos', 'Pérez Vargas', 'carlospv', 'mipassword', '5510203040', 'carlos.perez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Sofía', 'Ramírez Castro', 'sofiarc', 'segura123', '5580901020', 'sofia.ramirez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Miguel', 'Flores Díaz', 'miguelfd', 'clavefacil', '5530405060', 'miguel.flores@ejemplo.com', 'Activo', NOW(), NOW()),
-('Isabella', 'Ruiz Jiménez', 'isabellarj', 'clavemaestra', '5570809000', 'isabella.ruiz@ejemplo.com', 'Activo', NOW(), NOW()),
-('Sebastián', 'Torres Morales', 'sebastiantm', 'passwordseguro', '5520304050', 'sebastian.torres@ejemplo.com', 'Activo', NOW(), NOW()),
-('Valeria', 'Vargas Núñez', 'valeriavn', 'clavevaleria', '5560708090', 'valeria.vargas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Andrés', 'Hernández Soto', 'andreshs', 'claveandres', '5590001122', 'andres.hernandez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Camila', 'Díaz Chávez', 'camiladc', 'clavecamila', '5540506070', 'camila.diaz@ejemplo.com', 'Activo', NOW(), NOW()),
-('Javier', 'Rojas Flores', 'javierrf', 'clavejavier', '5580901020', 'javier.rojas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Renata', 'Jiménez Castillo', 'renatajc', 'claverenata', '5530405060', 'renata.jimenez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Diego', 'Morales Ruiz', 'diegomr', 'clavediego', '5570809000', 'diego.morales@ejemplo.com', 'Activo', NOW(), NOW()),
-('Paula', 'Soto Vargas', 'paulasv', 'clavepaula', '5520304050', 'paula.soto@ejemplo.com', 'Activo', NOW(), NOW()),
-('Gabriel', 'Castro Hernández', 'gabrielch', 'clavegabriel', '5560708090', 'gabriel.castro@ejemplo.com', 'Activo', NOW(), NOW()),
-('Fernanda', 'Núñez Díaz', 'fernandan', 'clavefernanda', '5590001122', 'fernanda.nunez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Joaquín', 'Chávez Rojas', 'joaquincr', 'clavejoaquin', '5540506070', 'joaquin.chavez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Elena', 'Vargas Castillo', 'elenavc', 'claveelena', '5580901020', 'elena.vargas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Ricardo', 'Castillo Jiménez', 'ricardocj', 'clavericardo', '5530405060', 'ricardo.castillo@ejemplo.com', 'Activo', NOW(), NOW()),
-('Daniela', 'Ruiz Morales', 'danielarm', 'clavedaniela', '5570809000', 'daniela.ruiz@ejemplo.com', 'Activo', NOW(), NOW()),
-('Alejandro', 'Vargas Soto', 'alejandrovs', 'clavealejandro', '5520304050', 'alejandro.vargas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Mariana', 'Hernández Castro', 'marianahc', 'clavemariana', '5560708090', 'mariana.hernandez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Sergio', 'Díaz Núñez', 'sergiodn', 'clavesergio', '5590001122', 'sergio.diaz@ejemplo.com', 'Activo', NOW(), NOW()),
-('Lorena', 'Rojas Chávez', 'lorenarc', 'clavelorena', '5540506070', 'lorena.rojas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Pablo', 'Jiménez Flores', 'pablojf', 'clavepablo', '5580901020', 'pablo.jimenez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Adriana', 'Morales Castillo', 'adrianamc', 'claveadriana', '5530405060', 'adriana.morales@ejemplo.com', 'Activo', NOW(), NOW()),
-('Gustavo', 'Soto Ruiz', 'gustavosr', 'clavegustavo', '5570809000', 'gustavo.soto@ejemplo.com', 'Activo', NOW(), NOW()),
-('Patricia', 'Castro Vargas', 'patriciav', 'clavepatricia', '5520304050', 'patricia.castro@ejemplo.com', 'Activo', NOW(), NOW()),
-('Héctor', 'Núñez Hernández', 'hectornh', 'clavehector', '5560708090', 'hector.nunez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Silvia', 'Chávez Díaz', 'silviacd', 'clavesilvia', '5590001122', 'silvia.chavez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Raúl', 'Castillo Rojas', 'raulcr', 'claveraul', '5540506070', 'raul.castillo@ejemplo.com', 'Activo', NOW(), NOW()),
-('Mónica', 'Ruiz Jiménez', 'monicarj', 'clavemonica', '5580901020', 'monica.ruiz@ejemplo.com', 'Activo', NOW(), NOW()),
-('Oscar', 'Vargas Morales', 'oscarvm', 'claveoscar', '5530405060', 'oscar.vargas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Liliana', 'Hernández Soto', 'lilianahs', 'claveliliana', '5570809000', 'liliana.hernandez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Fernando', 'Díaz Castro', 'fernandodc', 'clavefernando', '5520304050', 'fernando.diaz@ejemplo.com', 'Activo', NOW(), NOW()),
-('Carolina', 'Rojas Núñez', 'carolinarn', 'clavecarolina', '5560708090', 'carolina.rojas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Eduardo', 'Jiménez Chávez', 'eduardojc', 'claveeduardo', '5590001122', 'eduardo.jimenez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Verónica', 'Morales Flores', 'veronicamf', 'claveveronica', '5540506070', 'veronica.morales@ejemplo.com', 'Activo', NOW(), NOW()),
-('Jorge', 'Soto Castillo', 'jorgecs', 'clavejorge', '5580901020', 'jorge.soto@ejemplo.com', 'Activo', NOW(), NOW()),
-('Teresa', 'Castro Ruiz', 'teresacr', 'claveteresa', '5530405060', 'teresa.castro@ejemplo.com', 'Activo', NOW(), NOW()),
-('Manuel', 'Núñez Vargas', 'manuelnv', 'clavemanuel', '5570809000', 'manuel.nunez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Alicia', 'Chávez Hernández', 'aliciach', 'clavealicia', '5520304050', 'alicia.chavez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Roberto', 'Castillo Díaz', 'robertocd', 'claveroberto', '5560708090', 'roberto.castillo@ejemplo.com', 'Activo', NOW(), NOW()),
-('Sandra', 'Ruiz Rojas', 'sandrarj', 'clavesandra', '5590001122', 'sandra.ruiz@ejemplo.com', 'Activo', NOW(), NOW()),
-('Guillermo', 'Vargas Jiménez', 'guillermovj', 'claveguillermo', '5540506070', 'guillermo.vargas@ejemplo.com', 'Activo', NOW(), NOW()),
-('Patricia', 'Hernández Morales', 'patriciah', 'clavepatricia2', '5580901020', 'patricia.hernandez@ejemplo.com', 'Activo', NOW(), NOW()),
-('Julián', 'Díaz Soto', 'juliands', 'clavejulian', '5530405060', 'julian.diaz@ejemplo.com', 'Activo', NOW(), NOW());
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Ana', 'Martínez Sánchez', 'ana.martinez@example.com', '5544444444', 'Privada del Sol 789, Monterrey', 'INE6677889900', 'Activo');
+
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Pedro', 'Ramírez Torres', 'pedro.ramirez@example.com', '5533333333', 'Circuito Interior 101, Puebla', 'INE2233445566', 'Inactivo');
+
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Sofía', 'Díaz Herrera', 'sofia.diaz@example.com', '5522222222', 'Andador de la Luna 202, Querétaro', 'INE7788990011', 'Activo');
+
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Luis', 'Vargas Castro', 'luis.vargas@example.com', '5511111111', 'Paseo del Bosque 303, Tijuana', 'INE3344556677', 'Activo');
+
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Elena', 'Jiménez Ruiz', 'elena.jimenez@example.com', '5599887766', 'Calle Principal 404, Cancún', 'INE8899001122', 'Activo');
+
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Miguel', 'Gutiérrez Mendoza', 'miguel.gutierrez@example.com', '5577665544', 'Avenida Secundaria 505, León', 'INE4455667788', 'Activo');
+
+INSERT INTO mecanicos (nombres, apellidos, correo, telefono, direccion, ine, estatus) VALUES
+('Laura', 'Hernández Núñez', 'laura.hernandez@example.com', '5566554433', 'Cerrada del Río 606, Guadalajara', 'INE9900112233', 'Activo');
