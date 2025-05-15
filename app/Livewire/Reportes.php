@@ -5,11 +5,10 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Alumnos;
 use App\Models\Reporte;
-
+use Illuminate\Support\Facades\Auth;
 
 class Reportes extends Component
 {
-
   public $Role = "";
   public $Buscara = "";
   public $incidencias = [];
@@ -21,36 +20,41 @@ class Reportes extends Component
   public $Descripcion = "";
   public $FKIDAlumno = "";
   public $Status = "";
+  public $FKIDMaestro = "";
+
   public function LimpiarReporte()
   {
     $this->ID = 0;
     $this->Motivos = "";
     $this->Descripcion = "";
     $this->FKIDAlumno = "";
+    $this->FKIDMaestro = "";
     $this->Status = "";
   }
+
   public function render()
   {
     $this->Role = session('ROLE');
     $this->alumnos = Alumnos::all();
     return view('livewire.reportes');
   }
+
   public function abrirNuevo()
   {
     $this->dispatch('abrirNuevo');
   }
+
   public function Guardar()
   {
     $reporte = new Reporte();
-    $reporte->FKIDMaestro = 1;
+    $reporte->FKIDMaestro = Auth::id();
     $reporte->Motivos = $this->Motivos;
     $reporte->Descripción = $this->Descripcion;
     $reporte->FKIDAlumno = $this->FKIDAlumno;
     $reporte->Status = "No Leído";
-
-    $reporte->save(); // Se guarda antes de hacer cualquier otra acción
+    $reporte->save();
     $this->dispatch('cerrarNuevo');
-    $this->LimpiarReporte(); // Limpiar formulario
+    $this->LimpiarReporte();
     $this->Buscar();
   }
 
@@ -72,6 +76,7 @@ class Reportes extends Component
 
     $this->dispatch('abrirEditar');
   }
+
   public function Actualizar()
   {
     Reporte::where('id', $this->ID)->update([
@@ -84,6 +89,7 @@ class Reportes extends Component
     $this->LimpiarReporte();
     $this->dispatch('cerrarEditar');
   }
+
   public function Preguntar($ID)
   {
     $incidencias = Reporte::find($ID);
@@ -96,6 +102,7 @@ class Reportes extends Component
 
     $this->dispatch('abrirBorrar');
   }
+
   public function Eliminar()
   {
     if ($this->ID) {
@@ -105,6 +112,7 @@ class Reportes extends Component
       $this->dispatch('cerrarBorrar');
     }
   }
+
   public function Mostrar($ID)
   {
     $incidencia = Reporte::find($ID);
@@ -112,8 +120,10 @@ class Reportes extends Component
     $this->Motivos = $incidencia->Motivos;
     $this->Descripcion = $incidencia->Descripción;
     $this->Status = $incidencia->Status;
+
     $incidencia->Status = 'Leído';
     $incidencia->save();
+
     $this->dispatch('abrirMostrar');
   }
 }

@@ -21,7 +21,7 @@
       </div>
       <div class="d-flex flex-column gap-2">
         <button class="btn btn-warning btn-sm" wire:click="AbrirEditarMaestro({{ $maestro->id }})"> Editar</button>
-        <button class="btn btn-danger btn-sm" wire:click="AbrirEliminarMaestro({{ $maestro->id }})">🗑️ Eliminar</button>
+        <button class="btn btn-danger btn-sm" wire:click="AbrirEliminarMaestro({{ $maestro->id }})"> Eliminar</button>
       </div>
     </li>
     @endforeach

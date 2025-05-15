@@ -20,8 +20,8 @@ return new class extends Migration
       $table->enum('Status', ['Leído', 'No Leído'])->nullable();
       $table->timestamps();
 
-      $table->foreign('FKIDMaestro')->references('id')->on('Maestros')->onDelete('cascade');
-      $table->foreign('FKIDAlumno')->references('id')->on('Alumnos')->onDelete('cascade');
+      $table->foreign('FKIDMaestro')->references('id')->on('maestros')->onDelete('cascade');
+      $table->foreign('FKIDAlumno')->references('id')->on('alumnos')->onDelete('cascade');
     });
   }
 

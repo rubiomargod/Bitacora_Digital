@@ -17,6 +17,8 @@ class Login extends Component
   public $Clave = "";
   public $Errores = "";
   public $Estatus = "Acceder";
+  public $id = "";
+
 
   public function render()
   {
